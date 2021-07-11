@@ -14,10 +14,10 @@ function renderPlot() {
   var svgHeight = 660;
 
   var margin = {
-    top: 50,
+    top: 30,
     right: 30,
-    bottom: 80,
-    left: 20
+    bottom: 30,
+    left: 30
   };
 
   var width = svgWidth - margin.left - margin.right;
@@ -32,15 +32,23 @@ function renderPlot() {
   var chartGroup = svg.append("g")
     .attr("transform", `translate(${margin.left}, ${margin.top})`) 
 
-  d3.csv("./assets/data/data.csv").then(function (data, err) {
+  d3.csv("./assets/data/data.csv").then(function(data, err) {
     if (err) throw err;
 
     // Parse data
-    data.forEach(function (data) {
+    data.forEach(function(data) {
       data.obesity = +data.obesity;
       data.poverty = +data.poverty;
 
     });
+
+    // var barSpacing = 10; // desired space between each bar
+    // var scaleY = 10; // 10x scale on rect height
+
+    // // Create a 'barWidth' variable so that the bar chart spans the entire chartWidth.
+    // var barWidth = (chartWidth - (barSpacing * (tvData.length - 1))) / tvData.length;
+
+
 // (d3.min(data, d => d.obesity)
     var xAxis = d3.scaleLinear()
       .domain([0, (d3.max(data, d => d.obesity)+2)])
@@ -78,6 +86,7 @@ function renderPlot() {
       .classed("text", true)
       .attr("x", d => xAxis(d.obesity))
       .attr("y", d => yAxis(d.poverty))
+      // .attr("x", (d, i) => i * (barWidth + barSpacing))
       .attr("font-size", "8px")
       .text(d => d.abbr)
       .attr("text-anchor", "middle")
@@ -92,11 +101,11 @@ function renderPlot() {
 
     chartGroup.call(toolTip);
 
-    circlesGroup.on("mouseover", function (data) {
+    circlesGroup.on("mouseover", function(data) {
       toolTip.show(data, this);
     })
 
-      .on("mouseout", function (data) {
+      .on("mouseout", function(data) {
         toolTip.hide(data);
       });
   
@@ -113,7 +122,7 @@ function renderPlot() {
       .attr("class", "axisText")
       .text("Obesity %");
 
-  }).catch(function (error) {
+  }).catch(function(error) {
     console.log(error);
   });
 
