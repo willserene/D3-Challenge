@@ -4,5 +4,7 @@ Using the D3 techniques we learned in class, I created a scatter plot to visuali
 
 The scatter plot is coded in the app.js file, with the data.csv file pulled in using the d3.csv function.
 
+https://github.com/willserene/D3-Challenge
+
 *Currently the functionality provides a comparison between Poverty % and Obesity % however the additional variables will be added in future revisions / updates to this repository*
 
