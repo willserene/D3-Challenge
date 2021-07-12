@@ -2,22 +2,22 @@
 /********************************************************/
 function renderPlot() {
 
-  // var svg = d3
-  //   .select("body")
-  //   .select("svg");
+  var svg = d3
+    .select("body")
+    .select("svg");
 
-  // if (!svg.empty()) {
-  //   svg.remove();
-  // }
+  if (!svg.empty()) {
+    svg.remove();
+  }
 
-  var svgWidth = 960;
+  var svgWidth = 800;
   var svgHeight = 660;
 
   var margin = {
-    top: 30,
-    right: 30,
+    top: 50,
+    right: 10,
     bottom: 30,
-    left: 30
+    left: 40
   };
 
   var width = svgWidth - margin.left - margin.right;
@@ -52,22 +52,23 @@ function renderPlot() {
 // (d3.min(data, d => d.obesity)
     var xAxis = d3.scaleLinear()
       .domain([0, (d3.max(data, d => d.obesity)+2)])
-      .range([0, width]);
+      .range([margin.left, width - margin.right]);
 
     var yAxis = d3.scaleLinear()
       .domain([0, (d3.max(data, d => d.poverty)+2)])
-      .range([height, 0]);
+      .range([height - margin.bottom, margin.top]);
  
     var bottomAxis = d3.axisBottom(xAxis);
     var leftAxis = d3.axisLeft(yAxis);
 
     chartGroup.append("g")
  
-      .attr("transform", `translate(0, ${height})`)
-      .call(bottomAxis);
+      .call(bottomAxis)
+      .attr("transform", `translate(0, ${height - margin.bottom})`);
 
     chartGroup.append("g")
-      .call(leftAxis);
+      .call(leftAxis)
+      .attr("transform", `translate(${margin.left}, 0)`);
 
     var circlesGroup = chartGroup.selectAll("circle")
       .data(data)
@@ -111,14 +112,14 @@ function renderPlot() {
   
     chartGroup.append("text")
       .attr("transform", "rotate(-90)")
-      .attr("y", margin.left)
+      .attr("y", margin.left-55)
       .attr("x", 0 - (height / 2))
       .attr("dy", "1em")
       .attr("class", "axisText")
       .text("Poverty %");
 
     chartGroup.append("text")
-      .attr("transform", `translate(${width / 2}, ${height + margin.top})`)
+      .attr("transform", `translate(${width / 2}, ${height+15})`)
       .attr("class", "axisText")
       .text("Obesity %");
 
