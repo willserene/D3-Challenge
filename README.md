@@ -10,5 +10,8 @@ The scatter plot is coded in the app.js file, with the data.csv file pulled in u
 
 ![image](https://user-images.githubusercontent.com/79114121/137601977-3cb11f6f-cbd3-44af-8a74-9e9b0e49b84d.png)
 
+https://willserene.github.io/D3_Challenge/
+
+
 *Currently the functionality provides a comparison between Poverty % and Obesity % however the additional variables will be added in future revisions / updates to this repository*
 
